@@ -5,21 +5,31 @@
 import uvm_pkg::*;
 
 class temp extends uvm_object;
+  `uvm_object_utils(temp) //factory registeration
+ 
   bit[3:0] data_temp;
   
   function new(string inst = "temp");
     super.new(inst);
   endfunction
   
-  `uvm_object_utils_begin(temp)
-  `uvm_field_int(data_temp, UVM_DEFAULT)
-  `uvm_object_utils_end
+ ////DO-HOOK : print implementation
   
+  virtual function void do_print(uvm_printer printer);
+    super.do_print(printer);
+    printer.print_field("data_temp", data_temp, $bits(data_temp), UVM_DEC);
+  endfunction
+  
+ 
 endclass
 
 //////////////////////////////////////////////////////////////////////////////
 
+// --------MAIN CLASS------------
 class transaction extends uvm_sequence_item;
+  
+  `uvm_object_utils(transaction)
+  
   rand bit[3:0] data;
   temp t;
   
@@ -28,10 +38,21 @@ class transaction extends uvm_sequence_item;
     t = new("t");
   endfunction
   
-  `uvm_object_utils_begin(transaction)
-  `uvm_field_int(data, UVM_DEFAULT)
-  `uvm_field_object(t, UVM_DEFAULT)
-  `uvm_object_utils_end
+  virtual function void do_print(uvm_printer printer);
+    super.do_print(printer);
+    printer.print_field("data", data, $bits(data), UVM_DEC);
+    printer.print_object("t", t);
+  endfunction
+  
+  
+  ////// DO-HOOKS : copy implementation
+   virtual function void do_copy (uvm_object rhs);
+     transaction tr; //instance of transaction class
+     super.do_copy(rhs);
+     $cast(tr, rhs);
+     data = tr.data;
+     t.data_temp = tr.t.data_temp;
+   endfunction
   
 endclass
 
@@ -61,3 +82,5 @@ module tb;
   end
   
 endmodule
+
+////////////////////////////////////////////////////////////////////////////

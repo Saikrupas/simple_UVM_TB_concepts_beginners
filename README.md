@@ -21,12 +21,17 @@ REFERENCE FOR UVM - https://verificationacademy.com/verification-methodology-ref
 
  ### SECTION - 3:- Getting started with UVM_OBJECT:-  
  -----  
-11. inbuilt implementation : print (inbuilt_print)  
+11. inbuilt implementation  : print (inbuilt_print)  
 12. Do-Hooks implementation : print (do_hook_print)
-13. inbuilt implementation : copy (inbuilt_copy)
+13. inbuilt implementation  : copy (inbuilt_copy) 
+14. Do-Hooks implementation : copy (do_hook_copy)
+15. inbuilt implementation  : create (inbuilt_create)
+16. ASSIGNMENT-4-A51 --->> refer snippet
+17. ASSIGNMENT-5-A52 --->> refer snippet   
 
  ### SECTION - 4:- Getting started with UVM_COMPONENT:-  
  -----  
+ 
 
  ### SECTION - 5:- Resource Sharing:-  
  -----  
